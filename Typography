@@ -1,0 +1,38 @@
+var word = "Bath Spa University";
+var font1, font2, font3;
+var textSizeValue;
+
+function preload(){
+  font1 = loadFont("BlackOpsOne-Regular.ttf");
+  font2 = loadFont("Comfortaa-Light.ttf");
+  font3 = loadFont("ShadowsIntoLight.ttf");
+}
+
+function setup() {
+  createCanvas(400, 400);
+  textSizeValue = 100;  
+  textAlign(CENTER, CENTER);
+  adjustTextSize();
+}
+
+function draw() {
+  background(11, 23, 99);
+  fill(255, 255, 255); 
+  textFont(font3, textSizeValue);
+
+  let startX = width / 2 - textWidth(word) / 2;
+
+  for (let i = 0; i < word.length; i++) {
+    let x = startX + textWidth(word.substring(0, i)) + textWidth(word.charAt(i)) / 2;
+    let y = height / 2 + sin(frameCount * 0.1 + i) * 10;
+    text(word.charAt(i), x, y);
+  }
+}
+
+function adjustTextSize() {
+  textSize(textSizeValue);
+  while (textWidth(word) > width && textSizeValue > 1) {
+    textSizeValue--;
+    textSize(textSizeValue);
+  }
+}
