@@ -1,0 +1,42 @@
+let volHistory = [];
+
+function setup() {
+  createCanvas(400, 400);
+  mic = new p5.AudioIn();
+  mic.start();
+  colorMode(HSL);
+  angleMode(DEGREES);
+}
+
+function draw() {
+  background(0);
+  let vol = mic.getLevel();
+  volHistory.push(vol);
+
+  translate(width / 2, height / 2);
+  strokeWeight(2);
+  
+  let radius = 150;
+
+  for (let i = 0; i < volHistory.length; i++) {
+    let angle = map(i, 0, volHistory.length, 0, 360);
+    let mappedAmp = map(volHistory[i], 0, 1, radius, radius * 0.5);
+    
+    let hue = 270;
+    let saturation = map(volHistory[i], 0, 1, 50, 100);
+    let lightness = map(volHistory[i], 0, 1, 50, 70);
+
+    let x = mappedAmp * cos(angle);
+    let y = mappedAmp * sin(angle);
+
+    stroke(hue, saturation, lightness);
+    point(x, y);
+  }
+
+  let bgColor = map(vol, 0, 120, 46, 224);  
+  background(bgColor, 100, 10, 0.1);
+
+  if (volHistory.length > 360) {
+    volHistory.splice(0, 10);
+  }
+}
