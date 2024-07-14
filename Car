@@ -1,0 +1,23 @@
+
+function setup() {
+createCanvas(500, 500);
+}
+
+function draw() {
+  background (100,100,100);
+ 
+
+  // Roof
+  rect(45, 150, 200, 89)
+ 
+
+  //body
+  rect(45, 210, 235, 89)
+  fill(200 , 100 , 0)
+  
+
+  //wheel
+  ellipse(85, 295, 76, );
+  ellipse(235, 290, 76, 76);
+
+}
