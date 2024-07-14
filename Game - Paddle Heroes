@@ -1,0 +1,97 @@
+let xpos = 200;
+let ypos = 200;
+let dx = 5;
+let dy = 3;
+let player1Score = 0;
+let player2Score = 0;
+let gameOver = false;
+
+function preload() {
+    effect = loadSound('Tetris.mp3'); 
+}
+function setup() {
+  createCanvas(400, 400);
+  textAlign(CENTER, CENTER);
+}
+
+
+  if (effect.isLoaded()) {
+    effect.loop();
+  }
+
+function draw() {
+  background(38, 32, 38); 
+
+  if (!gameOver) {
+   
+    fill(232, 39, 219); 
+    rect(20, ypos - 40, 10, 80);
+    fill(96, 46, 224); 
+    rect(width - 30, mouseY - 40, 10, 80);
+
+    fill(0); 
+    ellipse(xpos, ypos, 20, 20);
+
+    
+    xpos += dx;
+    ypos += dy;
+
+ 
+    if (ypos >= height - 10 || ypos <= 10) {
+      dy = -dy;
+    }
+
+    
+    if (xpos <= 30 && ypos >= ypos - 40 && ypos <= ypos + 40) {
+      dx = -dx;
+    }
+    if (xpos >= width - 30 && ypos >= mouseY - 40 && ypos <= mouseY + 40) {
+      dx = -dx;
+    }
+
+    
+    if (xpos >= width) {
+      player1Score++;
+      resetBall();
+    }
+    if (xpos <= 0) {
+      player2Score++;
+      resetBall();
+    }
+
+    if (player1Score >= 10 || player2Score >= 10) {
+      gameOver = true;
+    }
+
+   
+  } else {
+   
+    textSize(32);
+    fill('black');
+    if (player1Score >= 10) {
+      text('Player 1 Wins!', width / 2, height / 2);
+    } else {
+      text('Player 2 Wins!', width / 2, height / 2);
+    }
+  }
+
+  // Display scores
+  textSize(20);
+  fill('rgb(178,75,245)');
+  text('Paddle Heroes', width / 2, 40);
+  text('Player 1: ' + player1Score, width / 4, 20);
+  text('Player 2: ' + player2Score, 3 * width / 4, 20);
+}
+
+function resetBall() {
+  xpos = width / 2;
+  ypos = height / 2;
+  dx = -dx;
+  dy = -dy;
+}
+function mousePressed() {
+ 
+  if (!effect.isPlaying()) {
+    effect.loop();
+  }
+}
