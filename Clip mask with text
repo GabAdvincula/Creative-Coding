@@ -1,0 +1,26 @@
+function setup() {
+  createCanvas(400, 400);
+  background(173, 216, 230); 
+
+  
+  cnv4 = createGraphics(width, height);
+  ctx2 = cnv4.canvas.getContext("2d");
+  cnv4.fill(70, 130, 180); 
+  cnv4.ellipse(200, 200, 200, 200); 
+  ctx2.clip();
+  cnv4.fill(240, 128, 128); 
+  cnv4.rect(150, 150, 100, 50); 
+  image(cnv4, 0, 0);
+
+
+  cnv3 = createGraphics(width, height);
+  cnv3.fill(3, 132, 252); 
+  cnv3.rect(200, 200, 200, 50); 
+  cnv3.erase();
+  cnv3.textSize(25);
+  cnv3.textFont("Montserrat");
+  cnv3.noErase();
+  cnv3.fill(0); 
+  cnv3.text('Gab Advincula', 220, 230); 
+  image(cnv3, 0, 0);
+}
