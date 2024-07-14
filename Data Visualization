@@ -1,0 +1,54 @@
+let days = ["M", "T", "W", "T", "F", "S", "Su"];
+let hoursSlept = [7, 8.5, 6, 7.5, 4, 9, 5];
+
+function setup() {
+  createCanvas(400, 400);
+  textAlign(CENTER, CENTER);
+  textSize(14);
+  noLoop(); // Run draw() only once
+}
+
+function draw() {
+  background(255);
+  let barWidth = 30;
+  let maxHours = max(hoursSlept);
+
+  // Title
+  fill(0);
+  textSize(20);
+  text("Hours Slept In A Day", width / 2, 30);
+  textSize(14);
+
+  // Draw bars
+  for (let i = 0; i < hoursSlept.length; i++) {
+    let x = map(i, 0, hoursSlept.length, 50, width - 50);
+    let y = map(hoursSlept[i], 0, maxHours, height - 50, 50);
+    let barHeight = height - 50 - y;
+
+    // Set different colors for different bars
+    if (days[i] === "T" && hoursSlept[i] === 8.5) {
+      fill(220, 20, 60); // Red
+    } else if (days[i] === "F") {
+      fill(72, 61, 139); // Blue
+    } else {
+      fill(147, 112, 219); // Purple
+    }
+
+    rect(x - barWidth / 2, y, barWidth, barHeight);
+
+    // Text above bars
+    fill(0);
+    if (hoursSlept[i] > 7.5) {
+      fill(220, 20, 60); // Red for the highlighted text
+      textSize(16);
+    } else {
+      textSize(14);
+    }
+    text(hoursSlept[i], x, y - 10);
+
+    // Text below bars
+    fill(0);
+    textSize(12);
+    text(days[i], x, height - 30);
+  }
+}
